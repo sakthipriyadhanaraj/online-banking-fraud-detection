@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraudulent Transaction Detection</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <script>
+        function updateNewBalance() {
+            var transactionType = document.getElementById("transaction_type").value;
+            var amount = parseFloat(document.getElementById("amount").value) || 0;
+            var oldBalance = parseFloat(document.getElementById("old_balance").value) || 0;
+            var newBalanceField = document.getElementById("new_balance");
+
+            if (transactionType === "CASH_OUT" || transactionType === "DEBIT" || transactionType === "PAYMENT" || transactionType === "TRANSFER") {
+                newBalanceField.value = oldBalance - amount;
+            } else if (transactionType === "CASH_IN") {
+                newBalanceField.value = oldBalance + amount;
+            } else {
+                newBalanceField.value = oldBalance;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <p><b>Enter transaction details to check for fraud</b></p>
+        <form action="/predict" method="post">
+            <div class="input-group">
+                <label for="a">Transaction Type:</label>
+                <select id="transaction_type" name="a" required onchange="updateNewBalance()">
+                    <option value="" disabled selected>Select Transaction Type</option>
+                    <option value="CASH_IN">CASH_IN</option>
+                    <option value="CASH_OUT">CASH_OUT</option>
+                    <option value="DEBIT">DEBIT</option>
+                    <option value="PAYMENT">PAYMENT</option>
+                    <option value="TRANSFER">TRANSFER</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="b">Amount:</label>
+                <input type="number" id="amount" name="b" placeholder="Enter Amount" required oninput="updateNewBalance()">
+            </div>
+
+            <div class="input-group">
+                <label for="c">Old Balance:</label>
+                <input type="number" id="old_balance" name="c" placeholder="Enter Old Balance" required oninput="updateNewBalance()">
+            </div>
+
+            <div class="input-group">
+                <label for="d">New Balance:</label>
+                <input type="number" id="new_balance" name="d" placeholder="Calculated Automatically" readonly>
+            </div>
+
+            <button type="submit">Predict</button><br><br>
+        </form>
+        <button onclick="location.href='/main'">Back</button>
+    </div>
+</body>
+</html>

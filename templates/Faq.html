@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Fraud Detection System</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #0056b3;
+        }
+        .container {
+         max-width: 800px;
+         margin: 50px auto;
+         padding: 20px;
+         background: rgba(255, 255, 255, 0.2); /* Add transparency */
+         border-radius: 8px;
+         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+         color: black;
+         backdrop-filter: blur(8px); /* Works only with transparency */
+        }
+
+        .faq-question {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: background 0.3s ease;
+        }
+        .faq-question:hover {
+            background: #0056b3;
+        }
+        .faq-answer {
+            display: none;
+            padding: 10px;
+            background: #f1f1f1;
+            border-left: 4px solid #007bff;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="text-center my-4" style="color: whitesmoke">Frequently Asked Questions (FAQ)</h2>
+
+        <div class="faq-question"> How does the fraud detection system work?</div>
+        <div class="faq-answer">
+            The system analyzes transaction patterns using machine learning and flags unusual activities based on predefined risk factors.
+        </div>
+
+        <div class="faq-question"> What happens if a transaction is marked as fraudulent?</div>
+        <div class="faq-answer">
+            If a transaction is flagged, the system sends an email notification and provides insights into why it was considered suspicious.
+        </div>
+
+        <div class="faq-question"> Can I report a false positive?</div>
+        <div class="faq-answer">
+            Yes, you can submit a request through the contact page, and our team will review the flagged transaction.
+        </div>
+
+        <div class="faq-question"> How secure is my data?</div>
+        <div class="faq-answer">
+            Your data is encrypted and stored securely. We follow best practices to ensure user privacy and security.
+        </div>
+        <button type="onclick"><a href="/main">Back</button><br>
+    </div>
+
+    <script>
+        document.querySelectorAll(".faq-question").forEach(item => {
+            item.addEventListener("click", function () {
+                let answer = this.nextElementSibling;
+                answer.style.display = (answer.style.display === "block") ? "none" : "block";
+            });
+        });
+    </script>
+
+</body>
+</html>

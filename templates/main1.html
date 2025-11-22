@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraudulent Transaction Detection - Admin Login</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h2>USER LOGIN</h2>
+
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>  <!-- Displays Flask error message -->
+            {% endif %}
+
+            <form id="loginForm" action="/login" method="post">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                
+                <div class="input-group password-container">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                    <span class="password-toggle-icon" onclick="togglePassword()">
+                        <i class="fa-solid fa-eye"></i>
+                    </span>               
+                </div>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (username.trim() === "" || password.trim() === "") {
+                alert("Username and password cannot be empty!");
+                event.preventDefault();  // Stops form submission
+            }
+        });
+
+        function togglePassword() {
+            var passwordInput = document.getElementById("password");
+            var icon = document.querySelector(".password-toggle-icon i");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    </script>
+</body>
+</html>
