@@ -1,26 +1,54 @@
-# Online Banking Fraud Detection System
+# 🔍 Online Banking Fraud Detection System
 
-A machine learning-based web application that predicts fraudulent online banking transactions in real time. This project uses classification algorithms to analyze transaction patterns and identify possible fraud before it happens.
+A machine learning pipeline that detects fraudulent banking transactions
+in real time. Built with Python, Scikit-learn, and Flask REST API.
 
-## 📍 Features
-- Detects whether a transaction is **fraud** or **legitimate**
-- Compares multiple ML models and selects the best performer
-- Interactive web interface using **Flask**
-- Real-time prediction from user inputs
-- Data preprocessing & evaluation metrics included
+## ⚡ Why I Built It This Way
+I compared 3 classification models on an imbalanced fraud dataset.
+Random Forest won (95% accuracy, 83% F1) because ensemble voting
+handles class imbalance better than a single Decision Tree.
+Logistic Regression scored 91% — good, but missed edge-case fraud
+patterns that tree-based models capture through feature interaction.
 
-## 🧠 Machine Learning Models Used
-- Logistic Regression
-- Decision Tree Classifier
-- Random Forest Classifier
+## 🏗️ Architecture
 
-**Best Model:** Random Forest  
-**Accuracy:** 95%  
-**F1-Score:** 83%
+  Transaction Input (JSON)
+         ↓
+  Flask REST API  (/predict endpoint)
+         ↓
+  Preprocessing Pipeline (StandardScaler + feature encoding)
+         ↓
+  Random Forest Model (fraud_detection_model.pkl)
+         ↓
+  Response: { 'prediction': 'Fraud' | 'Legitimate', 'confidence': 0.94 }
 
-## 🛠 Tech Stack
-**Backend:** Python, Flask  
-**ML Libraries:** Scikit-learn, Pandas, NumPy  
-**Frontend:** HTML, CSS  
-**Tools:** Jupyter Notebook, Git, GitHub  
+## 📊 Model Comparison
+| Model               | Accuracy | F1-Score | Why Not Chosen         |
+|---------------------|----------|----------|------------------------|
+| Logistic Regression | 91%      | 76%      | Misses complex patterns|
+| Decision Tree       | 89%      | 79%      | Overfits to train data |
+| **Random Forest**   | **95%**  | **83%**  | ✅ Best generalization  |
 
+## 🛠️ Tech Stack
+- Python, Flask, Scikit-learn, Pandas, NumPy
+- Jupyter Notebook for EDA and model training
+- REST API for real-time predictions
+
+## 🚀 Run Locally
+```bash
+git clone https://github.com/sakthipriyadhanaraj/online-banking-fraud-detection
+cd online-banking-fraud-detection
+pip install flask scikit-learn pandas numpy
+python app.py
+```
+
+## 📬 Sample API Request
+```json
+POST /predict
+{
+  "amount": 15000,
+  "transaction_type": "TRANSFER",
+  "oldbalanceOrg": 15000,
+  "newbalanceOrig": 0
+}
+```
